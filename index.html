@@ -1,0 +1,3185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShippingTrade — Global Container Shipping Investment</title>
+
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #001A55;
+            --navy2: #001038;
+            --gold: #D4A020;
+            --gold2: #F0C048;
+            --dark: #020C1E;
+            --card: #041228;
+            --muted: rgba(255, 255, 255, 0.52);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .lead-widget__form .lw-input {
+            padding-top: 18px !important;
+            padding-bottom: 18px !important;
+        }
+
+        body {
+            background: var(--dark);
+            color: #fff;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        input {
+          background-color: field;
+        }
+
+        /* TICKER */
+        .ticker-wrap {
+            background: var(--gold);
+            padding: 5px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker {
+            display: inline-block;
+            animation: tick 55s linear infinite;
+            font-size: 12px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        @keyframes tick {
+            from {
+                transform: translateX(100vw);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(2, 12, 30, 0.97);
+            border-bottom: 2px solid var(--gold);
+            padding: 0 48px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 400;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            background: var(--navy2);
+            border-radius: 8px;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-mark svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .logo-name {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1.5px;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: 1px;
+        }
+
+        .hdr-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .hdr-badge {
+            background: rgba(212, 160, 32, 0.08);
+            border: 1px solid rgba(212, 160, 32, 0.22);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 11px;
+            color: #bbb;
+        }
+
+        .hdr-badge b {
+            color: var(--gold);
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 580px;
+            display: flex;
+            align-items: center;
+            background: var(--navy2);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-color: #001A55;
+            background-image: url('images/photo-1558618666-fcd25c85cd64.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1.02);
+            }
+
+            to {
+                transform: scale(1.07);
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(2, 12, 30, 0.93) 0%, rgba(0, 16, 56, 0.76) 50%, rgba(2, 12, 30, 0.5) 100%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 100px 48px 90px;
+            width: 100%;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 160, 32, 0.14);
+            border: 1px solid rgba(212, 160, 32, 0.35);
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 18px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 26px;
+        }
+
+        .hero h1 {
+            font-size: 62px;
+            font-weight: 900;
+            line-height: 1.04;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+
+        .hero h1 .gold {
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 560px;
+            line-height: 1.68;
+            margin-bottom: 36px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            color: #000;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 16px 44px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.22s;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(212, 160, 32, 0.42);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            border: 1.5px solid rgba(255, 255, 255, 0.28);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            background: transparent;
+            transition: all 0.22s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--card);
+            border-top: 1px solid rgba(212, 160, 32, 0.18);
+            border-bottom: 1px solid rgba(212, 160, 32, 0.18);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 22px 52px;
+            border-right: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-val {
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 5px;
+            letter-spacing: 0.4px;
+        }
+
+        /* PHOTO STRIP */
+        .photo-strip {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .photo-tile {
+            position: relative;
+            overflow: hidden;
+            background: #041228;
+        }
+
+        .photo-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .photo-tile:hover img {
+            transform: scale(1.06);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+            padding: 32px 18px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* SECTION */
+        .sec {
+            padding: 84px 48px;
+        }
+
+        .sec-dark {
+            background: var(--dark);
+        }
+
+        .sec-card {
+            background: var(--card);
+        }
+
+        .sec-hd {
+            text-align: center;
+            margin-bottom: 52px;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: rgba(212, 160, 32, 0.1);
+            border: 1px solid rgba(212, 160, 32, 0.25);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .sec-hd h2 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .sec-hd p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        /* EARN CARDS */
+        .earn-grid {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .earn-card {
+            background: var(--card);
+            border: 1px solid rgba(212, 160, 32, 0.1);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.22s;
+        }
+
+        .earn-card:hover {
+            border-color: rgba(212, 160, 32, 0.38);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 42px rgba(0, 0, 0, 0.38);
+        }
+
+        .earn-icon {
+            font-size: 36px;
+            margin-bottom: 14px;
+        }
+
+        .earn-card h3 {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .earn-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .earn-range {
+            background: rgba(212, 160, 32, 0.08);
+            border: 1px solid rgba(212, 160, 32, 0.2);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        /* HOW IT WORKS */
+        .how-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .how-card {
+            text-align: center;
+            padding: 32px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+
+        .how-card:hover {
+            border-color: rgba(212, 160, 32, 0.25);
+            background: rgba(212, 160, 32, 0.04);
+        }
+
+        .how-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(212, 160, 32, 0.12);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .how-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .how-card h3 {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .how-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* LEAFLET MAP */
+        .routes-sec {
+            background: linear-gradient(160deg, #010A1C 0%, #020E24 100%);
+            padding: 84px 48px;
+        }
+
+        /* STOCKS SECTION */
+        .stocks-sec {
+            background: var(--card);
+            padding: 84px 48px;
+        }
+
+        .stocks-inner {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        /* Stock mini-ticker */
+        .stock-ticker-wrap {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(212, 160, 32, 0.18);
+            border-radius: 10px;
+            padding: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 44px;
+        }
+
+        .stock-ticker-inner {
+            display: flex;
+            align-items: center;
+        }
+
+        .stock-ticker-label {
+            background: var(--gold);
+            color: #000;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 10px 16px;
+            letter-spacing: 0.8px;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .stock-ticker-scroll {
+            overflow: hidden;
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .stock-ticker-track {
+            display: inline-flex;
+            gap: 0;
+            animation: stockTick 38s linear infinite;
+        }
+
+        @keyframes stockTick {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .stock-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            white-space: nowrap;
+        }
+
+        .stock-sym {
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .stock-px {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .stock-chg {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .stock-up {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        .stock-dn {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        /* Chart */
+        .stocks-chart-wrap {
+            background: rgba(2, 10, 28, 0.7);
+            border: 1px solid rgba(212, 160, 32, 0.14);
+            border-radius: 16px;
+            padding: 24px 24px 16px;
+            margin-bottom: 44px;
+            overflow: hidden;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .chart-title {
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .chart-leg-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .chart-leg-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .stocks-chart {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Dividend cards */
+        .divid-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .divid-card {
+            border-radius: 14px;
+            padding: 22px 18px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.22s;
+        }
+
+        .divid-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        .divid-card-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.07;
+        }
+
+        .divid-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .divid-co {
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .divid-name {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .divid-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .divid-lbl {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .divid-val {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .divid-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            margin: 10px 0;
+        }
+
+        .divid-yield {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .divid-yield-num {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .divid-yield-lbl {
+            font-size: 10px;
+            font-weight: 700;
+            opacity: 0.7;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .routes-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #routeMap {
+            height: 460px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 160, 32, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+        }
+
+        .port-tooltip {
+            background: rgba(4, 18, 40, 0.95) !important;
+            border: 1px solid rgba(212, 160, 32, 0.4) !important;
+            color: #D4A020 !important;
+            font-family: 'Inter', Arial, sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 12px !important;
+            border-radius: 6px !important;
+            padding: 4px 10px !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .port-tooltip::before {
+            display: none !important;
+        }
+
+        .leaflet-container {
+            background: #010A1C;
+        }
+
+        .leaflet-control-attribution {
+            display: none;
+        }
+
+        .map-legend {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .map-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .ml-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════════════
+       SELECTOR SECTION — Region + Company
+    ══════════════════════════════════════ */
+        .selector-sec {
+            background: linear-gradient(160deg, #020C1C 0%, #01091A 100%);
+            padding: 84px 48px;
+        }
+
+        .selector-inner {
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        /* Progress steps */
+        .sel-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            max-width: 420px;
+            margin: 0 auto 52px;
+        }
+
+        .sp-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sp-num {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.3);
+            background: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .sp-num.active {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 160, 32, 0.1);
+        }
+
+        .sp-num.done {
+            border-color: #22c55e;
+            color: #000;
+            background: #22c55e;
+        }
+
+        .sp-label {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: color 0.3s;
+        }
+
+        .sp-label.active {
+            color: var(--gold);
+        }
+
+        .sp-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            margin-bottom: 24px;
+            transition: background 0.3s;
+        }
+
+        .sp-line.done {
+            background: rgba(34, 197, 94, 0.5);
+        }
+
+        /* Sub-labels */
+        .sel-sub-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .sel-sub-label.on {
+            color: var(--gold);
+        }
+
+        /* REGION GRID */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+
+        .region-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.09);
+            border-radius: 14px;
+            padding: 22px 16px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.22s;
+            position: relative;
+        }
+
+        .region-card:hover {
+            border-color: rgba(212, 160, 32, 0.4);
+            background: rgba(212, 160, 32, 0.07);
+            transform: translateY(-2px);
+        }
+
+        .region-card.sel {
+            border-color: var(--gold);
+            background: rgba(212, 160, 32, 0.1);
+            box-shadow: 0 0 0 1px var(--gold);
+        }
+
+        .region-card.europe-card {
+            border-color: rgba(212, 160, 32, 0.35);
+            background: rgba(212, 160, 32, 0.055);
+        }
+
+        .region-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 11px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .region-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .region-name {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .region-income {
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 3px;
+        }
+
+        .region-period {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        /* COMPANY GRID */
+        .company-section {
+            opacity: 0.35;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .company-section.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+
+        .co-card {
+            border-radius: 14px;
+            padding: 20px 14px 16px;
+            text-align: center;
+            cursor: pointer;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.22s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .co-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .co-card.sel {
+            box-shadow: 0 0 0 2px #fff, 0 10px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        .co-card .co-tick {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .co-card.sel .co-tick {
+            opacity: 1;
+        }
+
+        .co-logo {
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 70px;
+        }
+
+        .co-name {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .co-flag {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .co-rank {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* CTA button */
+        .sel-cta-wrap {
+            text-align: center;
+        }
+
+        .sel-cta-hint {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 14px;
+            min-height: 20px;
+        }
+
+        .btn-sel-go {
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            color: #000;
+            font-size: 17px;
+            font-weight: 800;
+            padding: 18px 56px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.22s;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .btn-sel-go.on {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-sel-go.on:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(212, 160, 32, 0.45);
+        }
+
+        /* INCOME TIERS */
+        .income-grid {
+            max-width: 860px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .income-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            padding: 26px 18px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .income-card.popular {
+            border-color: rgba(212, 160, 32, 0.38);
+            box-shadow: 0 8px 28px rgba(212, 160, 32, 0.12);
+        }
+
+        .income-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .income-invest {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .income-badge {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .income-badgesub {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.32);
+            margin-bottom: 10px;
+        }
+
+        .income-val {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .income-period {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .income-pop-label {
+            font-size: 10px;
+            color: #22c55e;
+            font-weight: 800;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        /* SHIP BANNER */
+        .ship-banner {
+            position: relative;
+            height: 360px;
+            overflow: hidden;
+            background: #001038;
+        }
+
+        .ship-banner-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('images/photo-1493946740644-2d8a1f1a6aff.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+        }
+
+        .ship-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(2, 12, 30, 0.9) 0%, transparent 50%, rgba(2, 12, 30, 0.9) 100%);
+        }
+
+        .ship-banner-inner {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 48px;
+        }
+
+        .ship-banner h2 {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .ship-banner h2 .gold {
+            color: var(--gold);
+        }
+
+        .ship-banner p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.72);
+            max-width: 560px;
+            margin: 0 auto 26px;
+            line-height: 1.65;
+        }
+
+        /* TESTIMONIALS */
+        .testi-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .testi-card {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            padding: 28px 22px;
+            transition: all 0.2s;
+        }
+
+        .testi-card:hover {
+            border-color: rgba(212, 160, 32, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .testi-stars {
+            color: var(--gold);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .testi-text {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.68;
+            margin-bottom: 18px;
+            font-style: italic;
+        }
+
+        .testi-auth {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .testi-ava {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .testi-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .testi-loc {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .testi-earn {
+            font-size: 12px;
+            color: #22c55e;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .testi-co {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 1px;
+        }
+
+        /* CTA */
+        .cta-sec {
+            background: linear-gradient(140deg, #001038 0%, #001A55 50%, #000C30 100%);
+            padding: 84px 48px;
+            text-align: center;
+        }
+
+        .cta-sec h2 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .cta-sec h2 .gold {
+            color: var(--gold);
+        }
+
+        .cta-sec p {
+            font-size: 17px;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto 36px;
+            line-height: 1.65;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #010810;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 24px 48px;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            line-height: 1.8;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.82);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #081628;
+            border: 1px solid rgba(212, 160, 32, 0.22);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            color: #fff;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.62);
+            animation: mIn 0.24s ease;
+        }
+
+        @keyframes mIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .m-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.07);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 15px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+
+        .m-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .mstep {
+            display: none;
+        }
+
+        .mstep.active {
+            display: block;
+        }
+
+        .m-load {
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        .m-ship-anim {
+            font-size: 62px;
+            margin-bottom: 16px;
+            display: block;
+            animation: shipRock 2s ease-in-out infinite;
+        }
+
+        @keyframes shipRock {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-1deg)
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(1deg)
+            }
+        }
+
+        .m-load-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .m-load-sub {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .m-bar {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 8px;
+            height: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .m-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.45s ease;
+        }
+
+        .m-ptext {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .m-selected-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .m-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .m-badge-region {
+            background: rgba(212, 160, 32, 0.1);
+            border-color: rgba(212, 160, 32, 0.3);
+            color: var(--gold);
+        }
+
+        .m-badge-co {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+
+        .m-head {
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .m-head h3 {
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1.35;
+        }
+
+        .m-head h3 .gold {
+            color: var(--gold);
+        }
+
+        .m-head p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 6px;
+            line-height: 1.55;
+        }
+
+        .m-field {
+            margin-top: 12px;
+        }
+
+        .m-input {
+            width: 100%;
+            padding: 18px 14px;
+            background: #fff;
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            font-size: 15px;
+            color: #606164;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 3px;
+        }
+
+        .m-input:focus {
+            border-color: var(--gold);
+        }
+
+        .m-input::placeholder {
+            color: #606164;
+        }
+
+        .m-submit {
+            width: 100%;
+            padding: 11px;
+            background: #ffec00;
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            margin-block: 15px;
+        }
+
+        .m-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(212, 160, 32, 0.38);
+        }
+
+        .m-disc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.28);
+            text-align: center;
+            margin-top: 12px;
+            line-height: 1.55;
+        }
+
+        .m-ok {
+            text-align: center;
+            padding: 16px 0;
+        }
+
+        .m-ok-icon {
+            font-size: 62px;
+            margin-bottom: 16px;
+        }
+
+        .m-ok h3 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .m-ok p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .m-ok-note {
+            margin-top: 22px;
+            background: rgba(212, 160, 32, 0.08);
+            border: 1px solid rgba(212, 160, 32, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.55;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 820px) {
+            .m-close {
+                top: 105px;
+            }
+            header {
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero-inner {
+                padding: 80px 20px 70px;
+            }
+
+            .earn-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .how-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .region-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .company-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .income-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .divid-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .testi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                padding: 18px 24px;
+            }
+
+            .photo-strip {
+                grid-template-columns: 1fr 1fr;
+                height: 240px;
+            }
+
+            .photo-tile:last-child {
+                display: none;
+            }
+
+            #routeMap {
+                height: 320px;
+            }
+
+            .sec,
+            .routes-sec,
+            .selector-sec,
+            .cta-sec {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .earn-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hdr-right {
+                display: none;
+            }
+
+            .region-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .company-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .how-grid, .divid-grid, .income-grid, .testi-grid {
+                display: flex;
+                flex-direction: column;
+            }
+            .dep-grid {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .modal-box {
+                padding: 10px;
+            }
+            .m-field {
+                margin-top: 5px;
+            }
+            .dep-grid {
+                gap: 5px;
+                justify-content: center;
+            }
+            .dep-btn {
+                font-size: 12px;
+            }
+            .m-close {
+                top: 65px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <span class="ticker">
+            🚢 Global container shipping market: $350 billion/year in freight revenues ·
+            📈 Container shipping demand up 4.2% YoY — record capacity utilisation ·
+            💰 ShippingTrade investors average €5,800/month passive income (Europe) ·
+            ⚓ Top 10 carriers control 85% of world container capacity — invest in the leaders ·
+            🌍 200M+ TEUs shipped annually across 500+ global trade routes ·
+            📦 Port of Rotterdam handles 15.3M TEUs/year — Europe's #1 gateway ·
+            🔐 ShippingTrade funds protected by maritime investment escrow ·
+        </span>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <div class="logo-mark">
+                <svg viewBox="0 0 28 28" fill="none">
+                    <path d="M4 18 Q14 8 24 18" stroke="#D4A020" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+                    <path d="M7 18 L21 18 L19 23 L9 23 Z" fill="#D4A020"></path>
+                    <line x1="14" y1="8" x2="14" y2="4" stroke="#D4A020" stroke-width="2"></line>
+                    <line x1="11" y1="6" x2="17" y2="6" stroke="#D4A020" stroke-width="1.5"></line>
+                    <line x1="6" y1="22" x2="22" y2="22" stroke="rgba(212,160,32,0.35)" stroke-width="2"></line>
+                </svg>
+            </div>
+            <div>
+                <div class="logo-name">ShippingTrade</div>
+                <span class="logo-sub">Global Container Shipping Investment</span>
+            </div>
+        </div>
+        <div class="hdr-right">
+            <div class="hdr-badge"><b>🌍</b> Europe Priority Access</div>
+            <div class="hdr-badge"><b>🔒</b> Verified Programme</div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+            <div class="hero-tag">🚢 #1 Container Shipping Investment Platform</div>
+            <h1>Earn Up To <span class="gold">€15,000/Month</span><br>From Global Container Shipping</h1>
+            <p class="hero-sub">ShippingTrade connects investors to the world's largest container shipping carriers — MSC,
+                Maersk, CMA CGM and more. Choose your carrier, choose your region, earn passive income from global trade.</p>
+            <div class="hero-btns">
+                <button class="btn-gold" onclick="scrollToSelector()">Choose Your Carrier →</button>
+                <button class="btn-ghost" onclick="document.getElementById('howworks').scrollIntoView({behavior:'smooth'})">How
+                    It Works</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-val">$350B</div>
+            <div class="stat-label">Annual Freight Revenue (Industry)</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-val">200M+</div>
+            <div class="stat-label">TEUs Shipped Per Year</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-val">€5,800</div>
+            <div class="stat-label">Avg European Income / Month</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-val">500+</div>
+            <div class="stat-label">Active Global Trade Routes</div>
+        </div>
+    </div>
+
+    <!-- PHOTO STRIP -->
+    <div class="photo-strip">
+        <div class="photo-tile">
+            <img src="images/photo-1558618666-fcd25c85cd64.avif" onerror="this.src='images/photo-1504711434969-e33886168f5c.jpg'" alt="Container ship at sea" loading="lazy">
+            <div class="photo-caption">World's largest container carriers — 24/7 global operations</div>
+        </div>
+        <div class="photo-tile">
+            <img src="images/324675875.jpg" alt="Port of Rotterdam" loading="lazy">
+            <div class="photo-caption">Port of Rotterdam — 15.3M TEUs/year, Europe's gateway</div>
+        </div>
+        <div class="photo-tile">
+            <img src="images/photo-1547394765-185e1e68f34e.jpg" onerror="this.src='images/photo-1547394765-185e1e68f34e.jpg'" alt="Container terminal" loading="lazy">
+            <div class="photo-caption">Terminal operations — your income from every TEU processed</div>
+        </div>
+    </div>
+
+    <!-- EARN CARDS -->
+    <section class="sec sec-dark">
+        <div class="sec-hd">
+            <div class="tag-pill">Revenue Streams</div>
+            <h2>Six Ways to Earn with ShippingTrade</h2>
+            <p>The container shipping industry generates revenue across multiple streams — ShippingTrade gives you access to
+                all of them, automatically</p>
+        </div>
+        <div class="earn-grid">
+            <div class="earn-card">
+                <div class="earn-icon">📦</div>
+                <h3>Container Leasing</h3>
+                <p>Shipping containers are the backbone of global trade — there are over 50 million in circulation worldwide.
+                    Your capital funds containers leased to top carriers, generating steady monthly income per unit.</p>
+                <div class="earn-range">€300 – €800 / container / month</div>
+            </div>
+            <div class="earn-card">
+                <div class="earn-icon">🚢</div>
+                <h3>Freight Revenue Share</h3>
+                <p>Global container freight generates $350B/year in revenues. ShippingTrade investors receive a proportional
+                    share from completed voyages across the world's busiest trade routes.</p>
+                <div class="earn-range">€500 – €2,200 / voyage share</div>
+            </div>
+            <div class="earn-card">
+                <div class="earn-icon">🛡️</div>
+                <h3>Cargo Insurance Commissions</h3>
+                <p>Every container shipped is insured. Investors earn commission from insurance premiums bundled with carrier
+                    shipments — a low-risk, high-volume passive stream from the $50B maritime insurance market.</p>
+                <div class="earn-range">2% – 5% of insured cargo value</div>
+            </div>
+            <div class="earn-card">
+                <div class="earn-icon">📊</div>
+                <h3>Carrier Equity & Dividends</h3>
+                <p>The world's top shipping carriers generate billions in profit annually. Access equity positions in industry
+                    leaders — Maersk (listed), CMA CGM, MSC — with quarterly dividend distributions.</p>
+                <div class="earn-range">8% – 22% annual dividend yield</div>
+            </div>
+            <div class="earn-card">
+                <div class="earn-icon">⚓</div>
+                <h3>Port Terminal Revenue</h3>
+                <p>Container terminals charge handling fees on every TEU that passes through. Rotterdam processes 15.3M
+                    TEUs/year, Singapore 38M. Investors earn micro-fees across this massive volume.</p>
+                <div class="earn-range">€0.40 – €1.20 per TEU processed</div>
+            </div>
+            <div class="earn-card">
+                <div class="earn-icon">⛽</div>
+                <h3>Bunker Fuel Optimisation</h3>
+                <p>Bunker fuel is the single largest operating cost in shipping (~$200B/year industry-wide). Our platform
+                    participates in carrier fuel hedging strategies, distributing optimisation profits to investors.</p>
+                <div class="earn-range">€200 – €700 / quarter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="sec sec-card" id="howworks">
+        <div class="sec-hd">
+            <div class="tag-pill">Process</div>
+            <h2>How ShippingTrade Works</h2>
+            <p>Four steps from sign-up to monthly payout</p>
+        </div>
+        <div class="how-grid">
+            <div class="how-card">
+                <div class="how-num">1</div>
+                <div class="how-icon">🌍</div>
+                <h3>Choose Your Region</h3>
+                <p>Select the region where you want to invest. European region offers the highest income tier and priority
+                    allocation.</p>
+            </div>
+            <div class="how-card">
+                <div class="how-num">2</div>
+                <div class="how-icon">🚢</div>
+                <h3>Pick Your Carrier</h3>
+                <p>Select one of the world's top container shipping companies — MSC, Maersk, CMA CGM, ONE, Hapag-Lloyd and more.
+                </p>
+            </div>
+            <div class="how-card">
+                <div class="how-num">3</div>
+                <div class="how-icon">📞</div>
+                <h3>Speak with Your Adviser</h3>
+                <p>A dedicated ShippingTrade specialist contacts you within 30 minutes to activate your account and explain your
+                    income streams.</p>
+            </div>
+            <div class="how-card">
+                <div class="how-num">4</div>
+                <div class="how-icon">💰</div>
+                <h3>Receive Monthly Payouts</h3>
+                <p>Once activated, income flows automatically on the 1st of every month to your bank account or e-wallet. Fully
+                    passive.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEAFLET MAP -->
+    <section class="routes-sec">
+        <div class="routes-inner">
+            <div class="sec-hd">
+                <div class="tag-pill">Live Network</div>
+                <h2>Global Container Shipping Routes</h2>
+                <p>The world's top carriers operate on every major ocean — your investment earns from every single voyage</p>
+            </div>
+            <div id="routeMap"></div>
+            <div class="map-legend">
+                <div class="map-legend-item">
+                    <div class="ml-dot" style="background:#D4A020"></div><span>Animated shipping routes (live)</span>
+                </div>
+                <div class="map-legend-item">
+                    <div class="ml-dot" style="background:#D4A020;width:13px;height:13px;box-shadow:0 0 8px #D4A020"></div>
+                    <span>Major European port (Rotterdam)</span>
+                </div>
+                <div class="map-legend-item">
+                    <div class="ml-dot" style="background:#88AAFF"></div><span>Global partner ports</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STOCKS & DIVIDENDS SECTION -->
+    <section class="stocks-sec">
+        <div class="stocks-inner">
+            <div class="sec-hd">
+                <div class="tag-pill">Carrier Stocks & Dividends</div>
+                <h2>Earn From the World's Top Shipping Stocks</h2>
+                <p>The container shipping industry generates $350B/year in revenues. ShippingTrade gives you access to carrier
+                    equity positions — quarterly dividends, automatic payouts, no brokerage account required.</p>
+            </div>
+
+            <!-- Live stock ticker -->
+            <div class="stock-ticker-wrap">
+                <div class="stock-ticker-inner">
+                    <div class="stock-ticker-label">📈 Live</div>
+                    <div class="stock-ticker-scroll">
+                        <div class="stock-ticker-track">
+                            <!-- doubled for seamless loop -->
+                            <div class="stock-item"><span class="stock-sym">MAERSK</span><span class="stock-px">12,840 DKK</span><span class="stock-chg stock-up">▲ +3.2%</span></div>
+                            <div class="stock-item"><span class="stock-sym">HAPAG</span><span class="stock-px">€182.50</span><span class="stock-chg stock-up">▲ +5.1%</span></div>
+                            <div class="stock-item"><span class="stock-sym">COSCO</span><span class="stock-px">HK$13.28</span><span class="stock-chg stock-up">▲ +2.8%</span></div>
+                            <div class="stock-item"><span class="stock-sym">EVERGREEN</span><span class="stock-px">NT$148.5</span><span class="stock-chg stock-up">▲ +4.4%</span></div>
+                            <div class="stock-item"><span class="stock-sym">YANG MING</span><span class="stock-px">NT$92.3</span><span class="stock-chg stock-up">▲ +3.9%</span></div>
+                            <div class="stock-item"><span class="stock-sym">ONE</span><span class="stock-px">$24.80</span><span class="stock-chg stock-dn">▼ -0.4%</span></div>
+                            <div class="stock-item"><span class="stock-sym">CMA CGM</span><span class="stock-px">€58.20</span><span class="stock-chg stock-up">▲ +6.3%</span></div>
+                            <div class="stock-item"><span class="stock-sym">ZIM</span><span class="stock-px">$24.15</span><span class="stock-chg stock-up">▲ +2.1%</span></div>
+                            <div class="stock-item"><span class="stock-sym">GLOBUS</span><span class="stock-px">$21.60</span><span class="stock-chg stock-up">▲ +1.8%</span></div>
+                            <!-- duplicate -->
+                            <div class="stock-item"><span class="stock-sym">MAERSK</span><span class="stock-px">12,840 DKK</span><span class="stock-chg stock-up">▲ +3.2%</span></div>
+                            <div class="stock-item"><span class="stock-sym">HAPAG</span><span class="stock-px">€182.50</span><span class="stock-chg stock-up">▲ +5.1%</span></div>
+                            <div class="stock-item"><span class="stock-sym">COSCO</span><span class="stock-px">HK$13.28</span><span class="stock-chg stock-up">▲ +2.8%</span></div>
+                            <div class="stock-item"><span class="stock-sym">EVERGREEN</span><span class="stock-px">NT$148.5</span><span class="stock-chg stock-up">▲ +4.4%</span></div>
+                            <div class="stock-item"><span class="stock-sym">YANG MING</span><span class="stock-px">NT$92.3</span><span class="stock-chg stock-up">▲ +3.9%</span></div>
+                            <div class="stock-item"><span class="stock-sym">ONE</span><span class="stock-px">$24.80</span><span class="stock-chg stock-dn">▼ -0.4%</span></div>
+                            <div class="stock-item"><span class="stock-sym">CMA CGM</span><span class="stock-px">€58.20</span><span class="stock-chg stock-up">▲ +6.3%</span></div>
+                            <div class="stock-item"><span class="stock-sym">ZIM</span><span class="stock-px">$24.15</span><span class="stock-chg stock-up">▲ +2.1%</span></div>
+                            <div class="stock-item"><span class="stock-sym">GLOBUS</span><span class="stock-px">$21.60</span><span class="stock-chg stock-up">▲ +1.8%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12-month performance chart -->
+            <div class="stocks-chart-wrap">
+                <div class="chart-header">
+                    <div class="chart-title">ShippingTrade Portfolio Growth — 12-Month Performance</div>
+                    <div class="chart-legend">
+                        <div class="chart-leg-item">
+                            <div class="chart-leg-dot" style="background:#D4A020"></div><span>ShippingTrade Portfolio</span>
+                        </div>
+                        <div class="chart-leg-item">
+                            <div class="chart-leg-dot" style="background:#42B0D5"></div><span>Maersk</span>
+                        </div>
+                        <div class="chart-leg-item">
+                            <div class="chart-leg-dot" style="background:#F47920"></div><span>Hapag-Lloyd</span>
+                        </div>
+                        <div class="chart-leg-item">
+                            <div class="chart-leg-dot" style="background:#009A44"></div><span>Evergreen</span>
+                        </div>
+                    </div>
+                </div>
+                <svg class="stocks-chart" viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="portfolioGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#D4A020" stop-opacity="0.35"></stop>
+                            <stop offset="100%" stop-color="#D4A020" stop-opacity="0"></stop>
+                        </linearGradient>
+                        <linearGradient id="maerskGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#42B0D5" stop-opacity="0.18"></stop>
+                            <stop offset="100%" stop-color="#42B0D5" stop-opacity="0"></stop>
+                        </linearGradient>
+                        <filter id="lineGlow">
+                            <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                            <feMerge>
+                                <feMergeNode in="blur"></feMergeNode>
+                                <feMergeNode in="SourceGraphic"></feMergeNode>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    <line x1="60" y1="30" x2="800" y2="30" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="60" y1="75" x2="800" y2="75" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="60" y1="120" x2="800" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="60" y1="165" x2="800" y2="165" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="60" y1="210" x2="800" y2="210" stroke="rgba(255,255,255,0.08)" stroke-width="1"></line>
+
+                    <!-- Y-axis labels -->
+                    <text x="50" y="34" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">+30%</text>
+                    <text x="50" y="79" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">+22%</text>
+                    <text x="50" y="124" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">+14%</text>
+                    <text x="50" y="169" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">+7%</text>
+                    <text x="50" y="214" text-anchor="end" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">0%</text>
+
+                    <!-- X-axis labels (months) -->
+                    <text x="60" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Jan</text>
+                    <text x="127" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Feb</text>
+                    <text x="194" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Mar</text>
+                    <text x="261" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Apr</text>
+                    <text x="328" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">May</text>
+                    <text x="395" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Jun</text>
+                    <text x="462" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Jul</text>
+                    <text x="529" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Aug</text>
+                    <text x="596" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Sep</text>
+                    <text x="663" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Oct</text>
+                    <text x="730" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Nov</text>
+                    <text x="797" y="232" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="10" font-family="Inter,Arial,sans-serif">Dec</text>
+
+                    <!--
+          Y scale: 0% = y:210, +30% = y:30 → 180px / 30% = 6px per %
+          y = 210 - (pct * 6)
+          Portfolio: 0,2,5,8,13,11,16,18,22,24,27,30
+          Maersk:    0,3,4,2, 7, 9,12,10,16,18,21,22
+          Hapag:     0,4,7,5, 9,13,16,14,19,22,26,30
+          Evergreen: 0,1,3,6, 8, 6, 9,12,14,16,19,23
+        -->
+
+                    <!-- Maersk area -->
+                    <path d="M 60,210 L 127,192 L 194,186 L 261,198 L 328,168 L 395,156 L 462,138 L 529,150 L 596,114 L 663,102 L 730,84 L 797,78 L 797,210 Z" fill="url(#maerskGrad)"></path>
+                    <!-- Maersk line -->
+                    <path d="M 60,210 L 127,192 L 194,186 L 261,198 L 328,168 L 395,156 L 462,138 L 529,150 L 596,114 L 663,102 L 730,84 L 797,78" fill="none" stroke="#42B0D5" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.7"></path>
+
+                    <!-- Evergreen line -->
+                    <path d="M 60,210 L 127,204 L 194,192 L 261,174 L 328,162 L 395,174 L 462,156 L 529,138 L 596,126 L 663,114 L 730,96 L 797,72" fill="none" stroke="#009A44" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"></path>
+
+                    <!-- Hapag line -->
+                    <path d="M 60,210 L 127,186 L 194,168 L 261,180 L 328,156 L 395,132 L 462,114 L 529,126 L 596,96 L 663,78 L 730,54 L 797,30" fill="none" stroke="#F47920" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"></path>
+
+                    <!-- Portfolio area fill -->
+                    <path d="M 60,210 L 127,198 L 194,180 L 261,162 L 328,132 L 395,144 L 462,114 L 529,102 L 596,78 L 663,66 L 730,48 L 797,30 L 797,210 Z" fill="url(#portfolioGrad)"></path>
+
+                    <!-- Portfolio main line (gold, thicker) -->
+                    <path d="M 60,210 L 127,198 L 194,180 L 261,162 L 328,132 L 395,144 L 462,114 L 529,102 L 596,78 L 663,66 L 730,48 L 797,30" fill="none" stroke="#D4A020" stroke-width="2.5" filter="url(#lineGlow)" stroke-dasharray="740" stroke-dashoffset="740">
+                        <animate attributeName="stroke-dashoffset" from="740" to="0" dur="2.5s" fill="freeze" begin="0.3s">
+                        </animate>
+                    </path>
+
+                    <!-- End dot (portfolio) -->
+                    <circle cx="797" cy="30" r="5" fill="#D4A020" filter="url(#lineGlow)" opacity="0">
+                        <animate attributeName="opacity" from="0" to="1" dur="0.3s" fill="freeze" begin="2.7s"></animate>
+                    </circle>
+                    <!-- End label -->
+                    <text x="800" y="26" fill="#D4A020" font-size="11" font-weight="800" font-family="Inter,Arial,sans-serif" opacity="0">+30%
+                        <animate attributeName="opacity" from="0" to="1" dur="0.3s" fill="freeze" begin="2.7s"></animate>
+                    </text>
+
+                    <!-- Vertical "now" line -->
+                    <line x1="797" y1="30" x2="797" y2="210" stroke="rgba(212,160,32,0.2)" stroke-width="1" stroke-dasharray="3,4"></line>
+                    <text x="797" y="246" text-anchor="middle" fill="rgba(212,160,32,0.6)" font-size="10" font-weight="700" font-family="Inter,Arial,sans-serif">NOW</text>
+                </svg>
+            </div>
+
+            <!-- Dividend cards -->
+            <div class="divid-grid">
+
+                <!-- Maersk -->
+                <div class="divid-card" style="background:linear-gradient(135deg,#002235,#003355)">
+                    <div class="divid-card-inner">
+                        <div class="divid-co" style="background:#42B0D5;color:#fff">MAERSK</div>
+                        <div class="divid-name">A.P. Møller–Maersk 🇩🇰</div>
+                        <div class="divid-row"><span class="divid-lbl">Market Cap</span><span class="divid-val">$28.4B</span></div>
+                        <div class="divid-row"><span class="divid-lbl">Payout</span><span class="divid-val" style="color:#22c55e">Quarterly</span></div>
+                        <div class="divid-row"><span class="divid-lbl">12M Return</span><span class="divid-val">+22%</span></div>
+                        <div class="divid-divider"></div>
+                        <div class="divid-yield" style="background:rgba(66,176,213,0.15)">
+                            <div class="divid-yield-num" style="color:#42B0D5">14.2%</div>
+                            <div class="divid-yield-lbl" style="color:#42B0D5">Annual Dividend Yield</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hapag-Lloyd -->
+                <div class="divid-card" style="background:linear-gradient(135deg,#1F1000,#2E1800)">
+                    <div class="divid-card-inner">
+                        <div class="divid-co" style="background:#F47920;color:#fff">HAPAG-LLOYD</div>
+                        <div class="divid-name">Hapag-Lloyd AG 🇩🇪</div>
+                        <div class="divid-row"><span class="divid-lbl">Market Cap</span><span class="divid-val">€22.1B</span></div>
+                        <div class="divid-row"><span class="divid-lbl">Payout</span><span class="divid-val" style="color:#22c55e">Quarterly</span></div>
+                        <div class="divid-row"><span class="divid-lbl">12M Return</span><span class="divid-val">+30%</span></div>
+                        <div class="divid-divider"></div>
+                        <div class="divid-yield" style="background:rgba(244,121,32,0.15)">
+                            <div class="divid-yield-num" style="color:#F47920">18.6%</div>
+                            <div class="divid-yield-lbl" style="color:#F47920">Annual Dividend Yield</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evergreen -->
+                <div class="divid-card" style="background:linear-gradient(135deg,#001A0A,#002812)">
+                    <div class="divid-card-inner">
+                        <div class="divid-co" style="background:#009A44;color:#fff">EVERGREEN</div>
+                        <div class="divid-name">Evergreen Marine 🇹🇼</div>
+                        <div class="divid-row"><span class="divid-lbl">Market Cap</span><span class="divid-val">$18.7B</span></div>
+                        <div class="divid-row"><span class="divid-lbl">Payout</span><span class="divid-val" style="color:#22c55e">Quarterly</span></div>
+                        <div class="divid-row"><span class="divid-lbl">12M Return</span><span class="divid-val">+23%</span></div>
+                        <div class="divid-divider"></div>
+                        <div class="divid-yield" style="background:rgba(0,154,68,0.15)">
+                            <div class="divid-yield-num" style="color:#009A44">16.4%</div>
+                            <div class="divid-yield-lbl" style="color:#009A44">Annual Dividend Yield</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COSCO -->
+                <div class="divid-card" style="background:linear-gradient(135deg,#1A0002,#280005)">
+                    <div class="divid-card-inner">
+                        <div class="divid-co" style="background:#C8102E;color:#fff">COSCO</div>
+                        <div class="divid-name">COSCO Shipping 🇨🇳</div>
+                        <div class="divid-row"><span class="divid-lbl">Market Cap</span><span class="divid-val">HK$182B</span></div>
+                        <div class="divid-row"><span class="divid-lbl">Payout</span><span class="divid-val" style="color:#22c55e">Semi-annual</span></div>
+                        <div class="divid-row"><span class="divid-lbl">12M Return</span><span class="divid-val">+19%</span></div>
+                        <div class="divid-divider"></div>
+                        <div class="divid-yield" style="background:rgba(200,16,46,0.15)">
+                            <div class="divid-yield-num" style="color:#C8102E">12.8%</div>
+                            <div class="divid-yield-lbl" style="color:#C8102E">Annual Dividend Yield</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- INCOME TIERS -->
+    <section class="sec sec-dark">
+        <div class="sec-hd">
+            <div class="tag-pill">Investment Tiers</div>
+            <h2>Expected Monthly Returns — European Region</h2>
+            <p>Choose your starting investment. Returns scale with your carrier programme and investment tier.</p>
+        </div>
+        <div class="income-grid">
+            <div class="income-card">
+                <div class="income-invest">Starting from</div>
+                <div class="income-badge">€100</div>
+                <div class="income-badgesub">Entry investment</div>
+                <div class="income-val">€1,200</div>
+                <div class="income-period">per month</div>
+            </div>
+            <div class="income-card popular">
+                <div class="income-invest">Starting from</div>
+                <div class="income-badge">€300</div>
+                <div class="income-badgesub">Standard investment</div>
+                <div class="income-val">€3,800</div>
+                <div class="income-period">per month</div>
+                <div class="income-pop-label">★ MOST POPULAR</div>
+            </div>
+            <div class="income-card">
+                <div class="income-invest">Starting from</div>
+                <div class="income-badge">€500</div>
+                <div class="income-badgesub">Premium investment</div>
+                <div class="income-val">€8,500</div>
+                <div class="income-period">per month</div>
+            </div>
+            <div class="income-card" style="border-color:rgba(212,160,32,0.45);">
+                <div class="income-invest">Starting from</div>
+                <div class="income-badge">€1,000+</div>
+                <div class="income-badgesub">Elite portfolio</div>
+                <div class="income-val">€15,000+</div>
+                <div class="income-period">per month</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SELECTOR SECTION — Region + Company -->
+    <section class="selector-sec" id="selectorSection">
+        <div class="selector-inner">
+            <div class="sec-hd">
+                <div class="tag-pill">Start Investing</div>
+                <h2>Choose Your Region & Shipping Company</h2>
+                <p>Select both to unlock your personalised investment programme and connect with your adviser</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="sel-progress">
+                <div class="sp-item">
+                    <div class="sp-num active" id="sp1">1</div>
+                    <div class="sp-label active">Choose Region</div>
+                </div>
+                <div class="sp-line" id="spline1"></div>
+                <div class="sp-item">
+                    <div class="sp-num" id="sp2">2</div>
+                    <div class="sp-label">Choose Carrier</div>
+                </div>
+                <div class="sp-line" id="spline2"></div>
+                <div class="sp-item">
+                    <div class="sp-num" id="sp3">3</div>
+                    <div class="sp-label">Register</div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Region -->
+            <div class="sel-sub-label on" id="lbl1">Step 1 — Select your region</div>
+            <div class="region-grid">
+                <div class="region-card europe-card" onclick="selectRegion('Europe','🌍','up to €15,000',this)">
+                    <div class="region-badge">⭐ Highest Returns</div>
+                    <div class="region-icon">🌍</div>
+                    <div class="region-name">Europe</div>
+                    <div class="region-income">€5,000 – €15,000</div>
+                    <div class="region-period">per month · Priority access</div>
+                </div>
+                <div class="region-card" onclick="selectRegion('Middle East','🕌','up to €9,500',this)">
+                    <div class="region-icon">🕌</div>
+                    <div class="region-name">Middle East</div>
+                    <div class="region-income">€3,500 – €9,500</div>
+                    <div class="region-period">per month</div>
+                </div>
+                <div class="region-card" onclick="selectRegion('Asia','🌏','up to €8,000',this)">
+                    <div class="region-icon">🌏</div>
+                    <div class="region-name">Asia</div>
+                    <div class="region-income">€2,800 – €8,000</div>
+                    <div class="region-period">per month</div>
+                </div>
+                <div class="region-card" onclick="selectRegion('Oceania','🦘','up to €7,000',this)">
+                    <div class="region-icon">🦘</div>
+                    <div class="region-name">Oceania</div>
+                    <div class="region-income">€2,500 – €7,000</div>
+                    <div class="region-period">per month</div>
+                </div>
+                <div class="region-card" onclick="selectRegion('Americas','🌎','up to €6,500',this)">
+                    <div class="region-icon">🌎</div>
+                    <div class="region-name">Americas</div>
+                    <div class="region-income">€2,000 – €6,500</div>
+                    <div class="region-period">per month</div>
+                </div>
+                <div class="region-card" onclick="selectRegion('Africa','🦁','up to €5,000',this)">
+                    <div class="region-icon">🦁</div>
+                    <div class="region-name">Africa</div>
+                    <div class="region-income">€1,500 – €5,000</div>
+                    <div class="region-period">per month</div>
+                </div>
+            </div>
+
+            <!-- STEP 2: Company -->
+            <div class="company-section" id="companySection">
+                <div class="sel-sub-label" id="lbl2">Step 2 — Select your shipping company</div>
+                <div class="company-grid">
+
+                    <!-- MSC -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#001A55,#002680);border-color:rgba(100,140,255,0.2)" onclick="selectCompany('MSC','#001A55',this)">
+                        <div class="co-tick">✓</div>
+                        <div class="co-logo" style="background:rgba(255,255,255,0.12);color:#fff">MSC</div>
+                        <div class="co-name">Mediterranean Shipping</div>
+                        <div class="co-flag">🇨🇭 Switzerland</div>
+                        <div class="co-rank" style="background:rgba(212,160,32,0.15);color:var(--gold)">#1 World Fleet</div>
+                    </div>
+
+                    <!-- Maersk -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#00243D,#003966);border-color:rgba(66,176,213,0.25)" onclick="selectCompany('Maersk','#42B0D5',this)">
+                        <div class="co-tick">✓</div>
+                        <div class="co-logo" style="background:#42B0D5;color:#fff">MAERSK</div>
+                        <div class="co-name">A.P. Møller–Maersk</div>
+                        <div class="co-flag">🇩🇰 Denmark</div>
+                        <div class="co-rank" style="background:rgba(66,176,213,0.15);color:#42B0D5">#2 World Fleet</div>
+                    </div>
+
+                    <!-- CMA CGM -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#001F5B,#002A80);border-color:rgba(0,100,200,0.25)" onclick="selectCompany('CMA CGM','#0055A4',this)">
+                        <div class="co-tick">✓</div>
+                        <div class="co-logo" style="background:linear-gradient(90deg,#003087,#C8102E);color:#fff;font-size:11px">CMA
+                            CGM</div>
+                        <div class="co-name">CMA CGM Group</div>
+                        <div class="co-flag">🇫🇷 France</div>
+                        <div class="co-rank" style="background:rgba(0,48,135,0.3);color:#88AAFF">#3 World Fleet</div>
+                    </div>
+
+                    <!-- Hapag-Lloyd -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#1A1200,#2A1F00);border-color:rgba(244,121,32,0.25)" onclick="selectCompany('Hapag-Lloyd','#F47920',this)">
+                        <div class="co-tick" style="color:#F47920">✓</div>
+                        <div class="co-logo" style="background:#F47920;color:#fff;font-size:11px">HAPAG-LLOYD</div>
+                        <div class="co-name">Hapag-Lloyd AG</div>
+                        <div class="co-flag">🇩🇪 Germany</div>
+                        <div class="co-rank" style="background:rgba(244,121,32,0.15);color:#F47920">#4 World Fleet</div>
+                    </div>
+
+                    <!-- ONE -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#1A0020,#2D0038);border-color:rgba(228,0,127,0.25)" onclick="selectCompany('ONE','#E4007F',this)">
+                        <div class="co-tick" style="color:#E4007F">✓</div>
+                        <div class="co-logo" style="background:#E4007F;color:#fff">ONE</div>
+                        <div class="co-name">Ocean Network Express</div>
+                        <div class="co-flag">🇯🇵 Japan</div>
+                        <div class="co-rank" style="background:rgba(228,0,127,0.15);color:#E4007F">#5 World Fleet</div>
+                    </div>
+
+                    <!-- Evergreen -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#001A0A,#00280F);border-color:rgba(0,154,68,0.25)" onclick="selectCompany('Evergreen','#009A44',this)">
+                        <div class="co-tick" style="color:#009A44">✓</div>
+                        <div class="co-logo" style="background:#009A44;color:#fff;font-size:11px">EVERGREEN</div>
+                        <div class="co-name">Evergreen Marine</div>
+                        <div class="co-flag">🇹🇼 Taiwan</div>
+                        <div class="co-rank" style="background:rgba(0,154,68,0.15);color:#009A44">#6 World Fleet</div>
+                    </div>
+
+                    <!-- COSCO -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#1A0000,#2A0008);border-color:rgba(200,16,46,0.25)" onclick="selectCompany('COSCO','#C8102E',this)">
+                        <div class="co-tick" style="color:#C8102E">✓</div>
+                        <div class="co-logo" style="background:#C8102E;color:#fff">COSCO</div>
+                        <div class="co-name">COSCO Shipping Lines</div>
+                        <div class="co-flag">🇨🇳 China</div>
+                        <div class="co-rank" style="background:rgba(200,16,46,0.15);color:#C8102E">#7 World Fleet</div>
+                    </div>
+
+                    <!-- Yang Ming -->
+                    <div class="co-card" style="background:linear-gradient(135deg,#001520,#001F30);border-color:rgba(0,173,239,0.25)" onclick="selectCompany('Yang Ming','#00ADEF',this)">
+                        <div class="co-tick" style="color:#00ADEF">✓</div>
+                        <div class="co-logo" style="background:#00ADEF;color:#fff;font-size:11px">YANG MING</div>
+                        <div class="co-name">Yang Ming Marine</div>
+                        <div class="co-flag">🇹🇼 Taiwan</div>
+                        <div class="co-rank" style="background:rgba(0,173,239,0.15);color:#00ADEF">#8 World Fleet</div>
+                    </div>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="sel-cta-wrap">
+                    <div class="sel-cta-hint" id="ctaHint">Select a region and carrier above to continue</div>
+                    <button class="btn-sel-go" id="ctaBtn" onclick="openModal()">
+                        Get My Investment Plan →
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SHIP BANNER -->
+    <div class="ship-banner">
+        <div class="ship-banner-bg"></div>
+        <div class="ship-banner-overlay"></div>
+        <div class="ship-banner-inner">
+            <div>
+                <h2>The World's Largest <span class="gold">Carriers</span><br>Working For Your Portfolio</h2>
+                <p>The top 10 container shipping companies control 85% of global capacity. ShippingTrade puts you inside their
+                    revenue streams — automatically, every month, from anywhere in the world.</p>
+                <button class="btn-gold" onclick="scrollToSelector()">Choose Your Carrier →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <section class="sec sec-card">
+        <div class="sec-hd">
+            <div class="tag-pill">Success Stories</div>
+            <h2>What Our Investors Say</h2>
+            <p>Verified reviews from ShippingTrade participants across Europe</p>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"I started with €500 on the Maersk programme. After two months my container leasing income
+                    exceeded my salary. The adviser was excellent, setup was painless. Best decision I've made."</p>
+                <div class="testi-auth">
+                    <img class="testi-ava" src="images/hans-m.svg" alt="Hans M">
+                    <div>
+                        <div class="testi-name">Hans M.</div>
+                        <div class="testi-loc">🇩🇪 Frankfurt, Germany</div>
+                        <div class="testi-earn">Earning €4,800/month</div>
+                        <div class="testi-co">via Maersk programme</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"I chose CMA CGM because of their European routes. Adviser called in 20 minutes.
+                    Everything running in 48 hours. First payout arrived exactly on the 1st. No stress, no complications."</p>
+                <div class="testi-auth">
+                    <img class="testi-ava" src="images/sophie-l.svg" alt="Sophie L">
+                    <div>
+                        <div class="testi-name">Sophie L.</div>
+                        <div class="testi-loc">🇫🇷 Lyon, France</div>
+                        <div class="testi-earn">Earning €3,800/month</div>
+                        <div class="testi-co">via CMA CGM programme</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"I work in logistics so I understood the industry. The MSC equity dividend alone covers my
+                    mortgage. Fuel hedging returns are a bonus on top. Genuinely the best passive income I've found."</p>
+                <div class="testi-auth">
+                    <img class="testi-ava" src="images/giovani-r.svg" alt="Giovanni R">
+                    <div>
+                        <div class="testi-name">Giovanni R.</div>
+                        <div class="testi-loc">🇮🇹 Milan, Italy</div>
+                        <div class="testi-earn">Earning €8,200/month</div>
+                        <div class="testi-co">via MSC programme</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-sec">
+        <h2>Ready to Earn From <span class="gold">Container Shipping?</span></h2>
+        <p>Choose your region and carrier above, or click below to get started. Your personal ShippingTrade adviser will
+            contact you within 30 minutes.</p>
+        <button class="btn-gold" onclick="scrollToSelector()">Choose Your Carrier →</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 ShippingTrade Investment Programme. All rights reserved.<br>
+        ShippingTrade is an independent investment platform. Not affiliated with any individual carrier.<br>
+        This material is informational only and does not constitute financial advice. Past performance does not guarantee
+        future results.
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="oClick(event)">
+        <div class="modal-box">
+            <button class="m-close" onclick="closeModal()">✕</button>
+
+            <!-- Step 1: Loading -->
+            <div class="mstep active" id="ms1">
+                <div class="m-load">
+                    <span class="m-ship-anim">🚢</span>
+                    <div class="m-load-title" id="mTitle">Connecting to network...</div>
+                    <div class="m-load-sub" id="mSub">Verifying carrier availability</div>
+                    <div class="m-bar">
+                        <div class="m-fill" id="mFill"></div>
+                    </div>
+                    <div class="m-ptext" id="mPText">Please wait...</div>
+                </div>
+            </div>
+
+            <!-- Step 2: Form -->
+            <div class="mstep" id="ms2">
+                <div class="m-selected-badges">
+                    <div class="m-badge m-badge-region" id="mBadgeRegion">🌍 Europe</div>
+                    <div class="m-badge m-badge-co" id="mBadgeCo">🚢 MSC</div>
+                    <div class="m-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.3);color:#22c55e">✓
+                        Available</div>
+                </div>
+                <div class="m-head">
+                    <h3>Join ShippingTrade — earn <span class="gold" id="mMaxIncome">up to €15,000</span>/month</h3>
+                    <p>Your personal adviser will contact you within 30 minutes to activate your investment account.</p>
+                </div>
+                <form>
+                    <div class="m-field"><input class="m-input" id="mf1" type="text" placeholder="First name"></div>
+                    <div class="m-field"><input class="m-input" id="mf2" type="text" placeholder="Last name"></div>
+                    <div class="m-field"><input class="m-input" id="mf4" type="email" placeholder="Email address"></div>
+                    <div class="m-field"><input class="m-input" id="mf3" type="tel" placeholder="Phone number"></div>
+                    <div class="m-field">
+                        <div class="dep-label">Select your starting amount:</div>
+                        <div class="dep-grid" id="depGrid">
+                            <div class="dep-btn" onclick="selectDep(this,'€100')">€100</div>
+                            <div class="dep-btn dep-active" onclick="selectDep(this,'€300')">€300 <span class="dep-popular">Popular</span></div>
+                            <div class="dep-btn" onclick="selectDep(this,'€500')">€500</div>
+                            <div class="dep-btn" onclick="selectDep(this,'€1,000+')">€1,000+</div>
+                        </div>
+                        <input type="hidden" id="mf5" value="€300">
+                    </div>
+                    <button class="m-submit" onclick="submitForm()">Get My Investment Plan →</button>
+                </form>
+            </div>
+            <div class="m-disc">By submitting you agree to our privacy policy. A ShippingTrade adviser will call within 30
+                minutes to activate your account.</div>
+
+            <!-- Step 3: Success -->
+            <div class="mstep" id="ms3">
+                <div class="m-ok">
+                    <div class="m-ok-icon">✅</div>
+                    <h3>Application Received!</h3>
+                    <p>Your ShippingTrade registration is being processed. A personal investment adviser will call you within 30
+                        minutes to activate your account and explain your selected carrier programme.</p>
+                    <div class="m-ok-note">📞 Keep your phone nearby — your adviser will call shortly to complete setup and
+                        activate your investment profile.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <style>
+        .iti__selected-dial-code {
+            color: #000 !important;
+        }
+
+        .iti__country-name {
+            color: #000 !important;
+        }
+    </style>
+    <script>
+        /* ══════════════════════════════════════
+       STATE
+    ══════════════════════════════════════ */
+        let selRegion = null,
+            selRegionIcon = '',
+            selMaxIncome = '';
+        let selCompany = null,
+            selCompanyColor = '';
+
+        /* ══════════════════════════════════════
+           LEAFLET MAP
+        ══════════════════════════════════════ */
+        (function initMap() {
+            const map = L.map('routeMap', {
+                center: [20, 15],
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 6,
+                zoomControl: true,
+                attributionControl: false,
+                scrollWheelZoom: false,
+                dragging: true,
+                doubleClickZoom: false,
+                worldCopyJump: true
+            });
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            // All routes follow real ocean sea lanes — no cutting through land
+            const routeDefs = [
+
+                // Rotterdam → Shanghai  (Suez Canal → Red Sea → Malacca Strait → South China Sea)
+                {
+                    delay: 0,
+                    label: 'Rotterdam – Shanghai',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.8, 1.5],
+                        [50.5, -1.5], // English Channel
+                        [46.0, -8.0], // Bay of Biscay
+                        [36.5, -6.2],
+                        [35.9, -5.6], // Gibraltar Strait
+                        [37.8, 6.0],
+                        [37.5, 15.0],
+                        [36.5, 21.0],
+                        [34.5, 27.0],
+                        [33.5, 32.5], // Mediterranean
+                        [30.7, 32.3],
+                        [28.5, 33.2], // Suez Canal → Red Sea entry
+                        [22.0, 37.5],
+                        [15.0, 42.0],
+                        [12.5, 44.5], // Red Sea → Gulf of Aden
+                        [11.5, 50.0],
+                        [10.0, 57.5],
+                        [7.0, 65.0], // Arabian Sea
+                        [4.0, 73.0],
+                        [4.0, 80.0],
+                        [3.0, 90.0], // Indian Ocean
+                        [4.0, 98.5],
+                        [2.0, 103.5],
+                        [1.3, 103.8], // Malacca Strait → Singapore
+                        [5.0, 107.0],
+                        [10.0, 111.0],
+                        [16.0, 115.0],
+                        [22.0, 118.5],
+                        [26.5, 121.0],
+                        [31.2, 121.5] // South China Sea
+                    ]
+                },
+
+                // Rotterdam → Singapore  (same Suez / Malacca lane)
+                {
+                    delay: 9,
+                    label: 'Rotterdam – Singapore',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.8, 1.5],
+                        [50.5, -1.5],
+                        [46.0, -8.0],
+                        [36.5, -6.2],
+                        [35.9, -5.6],
+                        [37.8, 6.0],
+                        [37.5, 15.0],
+                        [36.5, 21.0],
+                        [34.5, 27.0],
+                        [33.5, 32.5],
+                        [30.7, 32.3],
+                        [28.5, 33.2],
+                        [22.0, 37.5],
+                        [15.0, 42.0],
+                        [12.5, 44.5],
+                        [11.5, 50.0],
+                        [10.0, 57.5],
+                        [7.0, 65.0],
+                        [4.0, 73.0],
+                        [4.0, 80.0],
+                        [3.0, 90.0],
+                        [4.0, 98.5],
+                        [2.0, 103.5],
+                        [1.3, 103.8]
+                    ]
+                },
+
+                // Rotterdam → New York  (North Atlantic)
+                {
+                    delay: 14,
+                    label: 'Rotterdam – New York',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.8, 1.5],
+                        [50.5, -1.5],
+                        [47.5, -8.5],
+                        [43.0, -20.0],
+                        [40.0, -38.0],
+                        [38.0, -52.0],
+                        [37.5, -62.0],
+                        [40.7, -74.0]
+                    ]
+                },
+
+                // Rotterdam → Dubai  (Suez → Red Sea → Gulf of Oman → Persian Gulf)
+                {
+                    delay: 5,
+                    label: 'Rotterdam – Dubai',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.8, 1.5],
+                        [50.5, -1.5],
+                        [46.0, -8.0],
+                        [36.5, -6.2],
+                        [35.9, -5.6],
+                        [37.8, 6.0],
+                        [37.5, 15.0],
+                        [36.5, 21.0],
+                        [34.5, 27.0],
+                        [33.5, 32.5],
+                        [30.7, 32.3],
+                        [28.5, 33.2],
+                        [22.0, 37.5],
+                        [15.0, 42.0],
+                        [12.5, 44.5],
+                        [12.0, 49.5],
+                        [16.0, 54.5],
+                        [22.0, 59.0],
+                        [24.5, 58.5],
+                        [26.0, 57.0],
+                        [25.3, 55.3]
+                    ]
+                },
+
+                // Rotterdam → Santos (South America via West Africa coast)
+                {
+                    delay: 20,
+                    label: 'Rotterdam – Santos',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.5, -1.5],
+                        [46.0, -8.0],
+                        [35.0, -10.0],
+                        [28.0, -15.5],
+                        [20.0, -18.0],
+                        [12.0, -18.5],
+                        [5.0, -20.0],
+                        [0.0, -22.0],
+                        [-8.0, -30.0],
+                        [-15.0, -36.0],
+                        [-20.5, -40.5],
+                        [-23.9, -46.3]
+                    ]
+                },
+
+                // Rotterdam → Cape Town (West Africa → Cape of Good Hope)
+                {
+                    delay: 11,
+                    label: 'Rotterdam – Cape Town',
+                    pts: [
+                        [51.9, 4.5],
+                        [50.5, -1.5],
+                        [46.0, -8.0],
+                        [35.0, -10.0],
+                        [28.0, -15.5],
+                        [20.0, -18.0],
+                        [12.0, -18.5],
+                        [5.0, -15.0],
+                        [0.0, -8.0],
+                        [-5.0, 0.0],
+                        [-12.0, 4.0],
+                        [-20.0, 8.0],
+                        [-28.0, 12.0],
+                        [-33.9, 18.4]
+                    ]
+                },
+
+                // Shanghai → Hamburg  (reverse Suez — through South China Sea, Malacca, Indian Ocean, Red Sea, Med)
+                {
+                    delay: 3,
+                    label: 'Shanghai – Hamburg',
+                    pts: [
+                        [31.2, 121.5],
+                        [26.5, 121.0],
+                        [22.0, 118.5],
+                        [16.0, 115.0],
+                        [10.0, 111.0],
+                        [5.0, 107.0],
+                        [1.3, 103.8],
+                        [2.0, 103.5],
+                        [4.0, 98.5],
+                        [3.0, 90.0],
+                        [4.0, 80.0],
+                        [4.0, 73.0],
+                        [7.0, 65.0],
+                        [10.0, 57.5],
+                        [11.5, 50.0],
+                        [12.5, 44.5],
+                        [15.0, 42.0],
+                        [22.0, 37.5],
+                        [28.5, 33.2],
+                        [30.7, 32.3],
+                        [33.5, 32.5],
+                        [34.5, 27.0],
+                        [36.5, 21.0],
+                        [37.5, 15.0],
+                        [37.8, 6.0],
+                        [35.9, -5.6],
+                        [36.5, -6.2],
+                        [46.0, -8.0],
+                        [50.5, -1.5],
+                        [50.8, 1.5],
+                        [52.0, 4.5],
+                        [52.5, 6.5],
+                        [53.5, 10.0]
+                    ]
+                },
+
+                // Singapore → Antwerp  (Indian Ocean → Suez → Med → North Sea)
+                {
+                    delay: 17,
+                    label: 'Singapore – Antwerp',
+                    pts: [
+                        [1.3, 103.8],
+                        [2.0, 103.5],
+                        [4.0, 98.5],
+                        [3.0, 90.0],
+                        [4.0, 80.0],
+                        [4.0, 73.0],
+                        [7.0, 65.0],
+                        [10.0, 57.5],
+                        [11.5, 50.0],
+                        [12.5, 44.5],
+                        [15.0, 42.0],
+                        [22.0, 37.5],
+                        [28.5, 33.2],
+                        [30.7, 32.3],
+                        [33.5, 32.5],
+                        [34.5, 27.0],
+                        [36.5, 21.0],
+                        [37.5, 15.0],
+                        [37.8, 6.0],
+                        [35.9, -5.6],
+                        [36.5, -6.2],
+                        [46.0, -8.0],
+                        [50.5, -1.5],
+                        [50.8, 1.5],
+                        [51.5, 2.5],
+                        [51.2, 4.4]
+                    ]
+                },
+
+                // Shanghai → Sydney  (via Coral Sea — stays east of Australia in open water)
+                {
+                    delay: 13,
+                    label: 'Shanghai – Sydney',
+                    pts: [
+                        [31.2, 121.5],
+                        [26.0, 122.5],
+                        [22.0, 122.0],
+                        [18.0, 122.5],
+                        [14.0, 124.0],
+                        [10.0, 128.0],
+                        [5.0, 135.0],
+                        [0.0, 144.5],
+                        [-8.0, 149.0],
+                        [-15.5, 152.0],
+                        [-22.0, 155.0],
+                        [-28.0, 154.5],
+                        [-33.9, 151.2]
+                    ]
+                },
+
+                // Dubai → Singapore  (Persian Gulf → Arabian Sea → Indian Ocean → Malacca)
+                {
+                    delay: 7,
+                    label: 'Dubai – Singapore',
+                    pts: [
+                        [25.3, 55.3],
+                        [26.0, 57.0],
+                        [24.5, 58.5],
+                        [22.5, 60.0],
+                        [18.0, 58.0],
+                        [14.0, 53.0],
+                        [12.0, 49.5],
+                        [12.5, 44.5],
+                        [10.0, 57.5],
+                        [7.0, 65.0],
+                        [4.0, 73.0],
+                        [4.0, 80.0],
+                        [3.0, 90.0],
+                        [4.0, 98.5],
+                        [2.0, 103.5],
+                        [1.3, 103.8]
+                    ]
+                },
+
+                // New York → Santos  (US East Coast → Caribbean → South Atlantic — avoids Amazon delta)
+                {
+                    delay: 22,
+                    label: 'New York – Santos',
+                    pts: [
+                        [40.7, -74.0],
+                        [37.0, -74.5],
+                        [30.0, -79.0],
+                        [25.5, -79.5],
+                        [23.5, -76.0],
+                        [20.0, -72.5],
+                        [16.0, -65.0],
+                        [12.5, -62.0],
+                        [9.0, -60.0],
+                        [5.0, -52.0],
+                        [1.0, -48.0],
+                        [-5.0, -36.0],
+                        [-12.0, -38.0],
+                        [-18.0, -39.0],
+                        [-23.9, -46.3]
+                    ]
+                },
+
+                // Cape Town → Singapore  (South Indian Ocean — below India, then Malacca)
+                {
+                    delay: 16,
+                    label: 'Cape Town – Singapore',
+                    pts: [
+                        [-33.9, 18.4],
+                        [-32.0, 28.0],
+                        [-26.0, 38.0],
+                        [-18.0, 48.0],
+                        [-10.0, 58.0],
+                        [-2.0, 68.0],
+                        [4.0, 73.0],
+                        [4.0, 80.0],
+                        [3.0, 90.0],
+                        [4.0, 98.5],
+                        [2.0, 103.5],
+                        [1.3, 103.8]
+                    ]
+                }
+
+            ];
+
+            const animRoutes = [];
+            routeDefs.forEach(r => {
+                L.polyline(r.pts, {
+                    color: 'rgba(212,160,32,0.18)',
+                    weight: 1.5,
+                    dashArray: '5 10'
+                }).addTo(map);
+                const ln = L.polyline(r.pts, {
+                    color: 'rgba(240,192,72,0.72)',
+                    weight: 2.2,
+                    dashArray: '10 30',
+                    dashOffset: String(r.delay * 10)
+                }).addTo(map);
+                ln.bindTooltip(r.label, {
+                    sticky: true,
+                    className: 'port-tooltip',
+                    direction: 'top'
+                });
+                animRoutes.push({
+                    line: ln,
+                    phase: r.delay
+                });
+            });
+
+            let tick = 0;
+            setInterval(() => {
+                tick += 0.5;
+                animRoutes.forEach(r => {
+                    r.line.setStyle({
+                        dashOffset: String(-((tick + r.phase * 12) % 400))
+                    });
+                });
+            }, 25);
+
+            const ports = [{
+                    c: [51.9, 4.5],
+                    n: 'Rotterdam',
+                    f: true
+                },
+                {
+                    c: [53.5, 10.0],
+                    n: 'Hamburg',
+                    f: false
+                },
+                {
+                    c: [51.2, 4.4],
+                    n: 'Antwerp',
+                    f: false
+                },
+                {
+                    c: [31.2, 121.5],
+                    n: 'Shanghai',
+                    f: false
+                },
+                {
+                    c: [1.3, 103.8],
+                    n: 'Singapore',
+                    f: false
+                },
+                {
+                    c: [25.3, 55.3],
+                    n: 'Dubai',
+                    f: false
+                },
+                {
+                    c: [40.7, -74.0],
+                    n: 'New York',
+                    f: false
+                },
+                {
+                    c: [-23.9, -46.3],
+                    n: 'Santos',
+                    f: false
+                },
+                {
+                    c: [-33.9, 18.4],
+                    n: 'Cape Town',
+                    f: false
+                },
+                {
+                    c: [-33.9, 151.2],
+                    n: 'Sydney',
+                    f: false
+                },
+                {
+                    c: [19.1, 72.8],
+                    n: 'Mumbai',
+                    f: false
+                },
+                {
+                    c: [12.5, 43.3],
+                    n: 'Djibouti',
+                    f: false
+                },
+                {
+                    c: [30.0, 32.5],
+                    n: 'Suez Canal',
+                    f: false
+                },
+                {
+                    c: [36.1, 5.3],
+                    n: 'Gibraltar',
+                    f: false
+                },
+            ];
+
+            ports.forEach(p => {
+                const s = p.f ? 16 : 10;
+                const col = p.f ? '#D4A020' : '#88AAFF';
+                const glow = p.f ? `box-shadow:0 0 12px 4px ${col},0 0 24px ${col};border:2px solid #fff;` : `box-shadow:0 0 6px ${col};border:1.5px solid rgba(255,255,255,0.5);`;
+                const pulse = p.f ? `<span style="position:absolute;inset:-6px;border-radius:50%;border:2px solid ${col};animation:portPulse 2.2s ease-out infinite;"></span>` : '';
+                L.marker(p.c, {
+                    icon: L.divIcon({
+                        html: `<div style="position:relative;width:${s}px;height:${s}px;background:${col};border-radius:50%;${glow}">${pulse}</div>`,
+                        className: '',
+                        iconSize: [s, s],
+                        iconAnchor: [s / 2, s / 2]
+                    }),
+                    zIndexOffset: p.f ? 1000 : 0
+                }).addTo(map).bindTooltip(p.n, {
+                    permanent: p.f,
+                    className: 'port-tooltip',
+                    direction: p.f ? 'top' : 'auto',
+                    offset: p.f ? [0, -10] : [0, 0]
+                });
+            });
+
+            const st = document.createElement('style');
+            st.textContent = '@keyframes portPulse{0%{transform:scale(1);opacity:0.5}100%{transform:scale(2.8);opacity:0}}';
+            document.head.appendChild(st);
+        })();
+
+        /* ══════════════════════════════════════
+           SELECTOR LOGIC
+        ══════════════════════════════════════ */
+        function scrollToSelector() {
+            document.getElementById('selectorSection').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function selectRegion(region, icon, maxIncome, el) {
+            selRegion = region;
+            selRegionIcon = icon;
+            selMaxIncome = maxIncome;
+            document.querySelectorAll('.region-card').forEach(c => c.classList.remove('sel'));
+            el.classList.add('sel');
+            // Progress step 1 done
+            const sp1 = document.getElementById('sp1');
+            sp1.classList.remove('active');
+            sp1.classList.add('done');
+            sp1.textContent = '✓';
+            document.getElementById('spline1').classList.add('done');
+            document.getElementById('sp2').classList.add('active');
+            document.getElementById('lbl1').classList.remove('on');
+            // Enable company section
+            const cs = document.getElementById('companySection');
+            cs.classList.add('enabled');
+            document.getElementById('lbl2').classList.add('on');
+            cs.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+            updateCta();
+        }
+
+        function selectCompany(name, color, el) {
+            selCompany = name;
+            selCompanyColor = color;
+            document.querySelectorAll('.co-card').forEach(c => c.classList.remove('sel'));
+            el.classList.add('sel');
+            // Progress step 2 done
+            const sp2 = document.getElementById('sp2');
+            sp2.classList.remove('active');
+            sp2.classList.add('done');
+            sp2.textContent = '✓';
+            document.getElementById('spline2').classList.add('done');
+            document.getElementById('sp3').classList.add('active');
+            updateCta();
+        }
+
+        function updateCta() {
+            const btn = document.getElementById('ctaBtn');
+            const hint = document.getElementById('ctaHint');
+            if(selRegion && selCompany) {
+                btn.classList.add('on');
+                hint.textContent = selRegionIcon + ' ' + selRegion + '  ·  🚢 ' + selCompany + '  — ready to connect!';
+                hint.style.color = 'var(--gold)';
+                btn.textContent = 'Start Earning — ' + selCompany + ' ' + selRegion + ' →';
+            } else if(selRegion && !selCompany) {
+                hint.textContent = selRegionIcon + ' ' + selRegion + ' selected — now choose your carrier';
+                hint.style.color = 'rgba(255,255,255,0.5)';
+            } else {
+                hint.textContent = 'Select a region and carrier above to continue';
+                hint.style.color = 'var(--muted)';
+            }
+        }
+
+        /* ══════════════════════════════════════
+           MODAL
+        ══════════════════════════════════════ */
+        function openModal() {
+            if(!selRegion || !selCompany) return;
+            showMs('ms1');
+            document.getElementById('modalOverlay').classList.add('open');
+            runLoading();
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+        }
+
+        function oClick(e) {
+            if(e.target === document.getElementById('modalOverlay')) closeModal();
+        }
+
+        function showMs(id) {
+            document.querySelectorAll('.mstep').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function runLoading() {
+            const fill = document.getElementById('mFill');
+            const title = document.getElementById('mTitle');
+            const sub = document.getElementById('mSub');
+            const ptext = document.getElementById('mPText');
+            fill.style.width = '0%';
+
+            const steps = [{
+                    pct: 20,
+                    t: 'Verifying ' + selCompany + ' routes in ' + selRegion + '...',
+                    s: 'Scanning global carrier network',
+                    p: 'Establishing secure connection...'
+                },
+                {
+                    pct: 50,
+                    t: 'Checking programme availability...',
+                    s: selRegionIcon + ' ' + selRegion + ': programme active ✓',
+                    p: 'Checking carrier capacity...'
+                },
+                {
+                    pct: 78,
+                    t: 'Allocating investor slot...',
+                    s: 'Expected income: ' + selMaxIncome,
+                    p: 'Reserving your position...'
+                },
+                {
+                    pct: 98,
+                    t: 'Slot confirmed! Loading registration...',
+                    s: 'Welcome to ShippingTrade ✓',
+                    p: 'Almost ready...'
+                },
+            ];
+
+            let i = 0;
+            const iv = setInterval(() => {
+                if(i < steps.length) {
+                    fill.style.width = steps[i].pct + '%';
+                    title.textContent = steps[i].t;
+                    sub.textContent = steps[i].s;
+                    ptext.textContent = steps[i].p;
+                    i++;
+                } else {
+                    clearInterval(iv);
+                    document.getElementById('mBadgeRegion').textContent = selRegionIcon + ' ' + selRegion;
+                    document.getElementById('mBadgeCo').textContent = '🚢 ' + selCompany;
+                    document.getElementById('mMaxIncome').textContent = selMaxIncome;
+                    if(selCompanyColor) {
+                        document.getElementById('mBadgeCo').style.borderColor = selCompanyColor + '55';
+                        document.getElementById('mBadgeCo').style.color = selCompanyColor;
+                    }
+                    setTimeout(() => showMs('ms2'), 500);
+                }
+            }, 860);
+        }
+
+        function selectDep(el, val) {
+            document.querySelectorAll('.dep-btn').forEach(b => b.classList.remove('dep-active'));
+            el.classList.add('dep-active');
+            document.getElementById('mf5').value = val;
+        }
+
+        function submitForm() {
+            const vals = ['mf1', 'mf2', 'mf3', 'mf4'].map(id => document.getElementById(id).value.trim());
+            if(vals.some(v => !v)) {
+                alert('Please fill in all fields');
+                return;
+            }
+            showMs('ms3');
+        }
+
+        document.addEventListener('keydown', e => {
+            if(e.key === 'Escape') closeModal();
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>
